@@ -2,11 +2,14 @@ package com.example.demo.model;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Ingredient {
@@ -16,8 +19,11 @@ public class Ingredient {
 	private Long ingredientID;
 	private String description;
 	private BigDecimal amount;
-	@ManyToOne
-	private Recipe recipe; //to which ingredient belongs
+	@ManyToOne // no cascading is needed. As per data model design.
+	private Recipe recipe; // to which ingredient belongs
+
+	@OneToOne(fetch=FetchType.EAGER) //fetched everytime from db
+	private UnitOfMeasurement unitOfMeasurement;
 
 	public Long getIngredientID() {
 		return ingredientID;
@@ -25,6 +31,14 @@ public class Ingredient {
 
 	public void setIngredientID(Long ingredientID) {
 		this.ingredientID = ingredientID;
+	}
+
+	public UnitOfMeasurement getUnitOfMeasurement() {
+		return unitOfMeasurement;
+	}
+
+	public void setUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement) {
+		this.unitOfMeasurement = unitOfMeasurement;
 	}
 
 	public String getDescription() {
