@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 
 	@RequestMapping({"","/","/home"}) //setting up MVC.
-	public String getHomePage() {
+	public String getHome() {
 		return "homePage";   //spring will pick Thymeleaf template with name homePage;
 	}
 }
