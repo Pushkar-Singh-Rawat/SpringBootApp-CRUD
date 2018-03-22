@@ -34,7 +34,7 @@ public class Recipe {
 	private Notes notes;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe") // as recipe owns Ingredient. 
 	private Set<Ingredient> ingredient; //this will be mapped by the recipe property of ingredient
-	@Enumerated(EnumType.STRING)
+	@Enumerated(value=EnumType.STRING) //db will have string values saved into it.
 	private Difficulty difficulty;
 	public Set<Ingredient> getIngredient() {
 		return ingredient;

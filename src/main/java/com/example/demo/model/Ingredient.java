@@ -2,8 +2,9 @@ package com.example.demo.model;
 
 import java.math.BigDecimal;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +23,7 @@ public class Ingredient {
 	@ManyToOne // no cascading is needed. As per data model design.
 	private Recipe recipe; // to which ingredient belongs
 
-	@OneToOne(fetch=FetchType.EAGER) //fetched everytime from db
+	@OneToOne(fetch = FetchType.EAGER) // fetched everytime from db
 	private UnitOfMeasurement unitOfMeasurement;
 
 	public Long getIngredientID() {
