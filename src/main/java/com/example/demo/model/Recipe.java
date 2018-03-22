@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,29 +23,30 @@ public class Recipe {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // underlying pa would generate the unique id sequence
-														// accordingly
+	// accordingly
 	private Long recipeID;
 
 	private Integer prepTime;
 	private Integer cookTime;
 	private Integer servings;
 	private String url;
+	@Lob
 	private String directions;
 	private String description;
 	@Lob
 	private Byte[] image; // will be stored as a BLOB in db
 	@OneToOne(cascade = CascadeType.ALL) // owner entity for Notes. If any state change happens for Recipe then Notes
-											// would get that.
+	// would get that.
 	private Notes notes;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe") // as recipe owns Ingredient.
-	private Set<Ingredient> ingredient; // this will be mapped by the recipe property of ingredient
+	private Set<Ingredient> ingredient=new HashSet<>(); // this will be mapped by the recipe property of ingredient
 	@Enumerated(value = EnumType.STRING) // db will have string values saved into it.
 	private Difficulty difficulty;
 	@ManyToMany
 	@JoinTable(name="recipe_category",joinColumns= @JoinColumn(name="recipe_recipeID"),inverseJoinColumns=
-			@JoinColumn(name="category_catgID")) //join colm naming convention: tablename_idname
+	@JoinColumn(name="category_catgID")) //join colm naming convention: tablename_idname
 	//inverseJoinColumns and joincolumns to implement bidirectional join.
-	private Set<Category> categories;
+	private Set<Category> categories=new HashSet<>() ;
 
 	public Set<Ingredient> getIngredient() {
 		return ingredient;
@@ -52,6 +54,12 @@ public class Recipe {
 
 	public void setIngredient(Set<Ingredient> ingredient) {
 		this.ingredient = ingredient;
+	}
+
+	public Recipe addIngredient(Ingredient ingredient) {
+		ingredient.setRecipe(this);
+	    this.ingredient.add(ingredient);
+	    return this;
 	}
 
 	public Long getRecipeID() {
@@ -124,6 +132,7 @@ public class Recipe {
 
 	public void setNotes(Notes notes) {
 		this.notes = notes;
+		notes.setRecipe(this);
 	}
 
 	public Difficulty getDifficulty() {
