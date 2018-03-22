@@ -1,12 +1,26 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <!-- xmlns:xml namespace -->
 <head>
 <meta charset="UTF-8" />
-<title>Spring RecipeApp</title>
+<title>ATS Web Portal FullStack</title>
 
 </head>
 <body>
-	<h1>My Recipes - By Spring5!</h1>
+	<h1>Recipe App</h1>
+	<table>
+		<tr>
+			<th>Recipe ID</th>
+			<th>Description</th>
+			<th>Difficulty Level</th>
+			
+		</tr>
+		<tr th:each="recipe : ${recipes}">
+			<td th:text="${recipe.recipeID}">122</td>
+			<td th:text="${recipe.description}">art</td>
+			<td th:text="${recipe.difficulty}">pub</td>
+			
+		</tr>
+	</table>
 </body>
 </html>
