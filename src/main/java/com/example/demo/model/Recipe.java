@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -9,7 +10,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -32,10 +36,16 @@ public class Recipe {
 	@OneToOne(cascade = CascadeType.ALL) // owner entity for Notes. If any state change happens for Recipe then Notes
 											// would get that.
 	private Notes notes;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe") // as recipe owns Ingredient. 
-	private Set<Ingredient> ingredient; //this will be mapped by the recipe property of ingredient
-	@Enumerated(value=EnumType.STRING) //db will have string values saved into it.
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe") // as recipe owns Ingredient.
+	private Set<Ingredient> ingredient; // this will be mapped by the recipe property of ingredient
+	@Enumerated(value = EnumType.STRING) // db will have string values saved into it.
 	private Difficulty difficulty;
+	@ManyToMany
+	@JoinTable(name="recipe_category",joinColumns= @JoinColumn(name="recipe_recipeID"),inverseJoinColumns=
+			@JoinColumn(name="category_catgID")) //join colm naming convention: tablename_idname
+	//inverseJoinColumns and joincolumns to implement bidirectional join.
+	private Set<Category> categories;
+
 	public Set<Ingredient> getIngredient() {
 		return ingredient;
 	}
@@ -123,4 +133,13 @@ public class Recipe {
 	public void setDifficulty(Difficulty difficulty) {
 		this.difficulty = difficulty;
 	}
+
+	public Set<Category> getCategory() {
+		return categories;
+	}
+
+	public void setCategory(Set<Category> categories) {
+		this.categories = categories;
+	}
+
 }
