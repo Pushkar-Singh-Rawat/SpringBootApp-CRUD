@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +34,8 @@ public class Recipe {
 	private Notes notes;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe") // as recipe owns Ingredient. 
 	private Set<Ingredient> ingredient; //this will be mapped by the recipe property of ingredient
-
+	@Enumerated(EnumType.STRING)
+	private Difficulty difficulty;
 	public Set<Ingredient> getIngredient() {
 		return ingredient;
 	}
@@ -111,5 +114,13 @@ public class Recipe {
 
 	public void setNotes(Notes notes) {
 		this.notes = notes;
+	}
+
+	public Difficulty getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(Difficulty difficulty) {
+		this.difficulty = difficulty;
 	}
 }
