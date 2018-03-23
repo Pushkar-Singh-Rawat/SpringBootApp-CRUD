@@ -1,4 +1,4 @@
-package com.example.demo.model.unittests;
+package com.example.demo.model;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.example.demo.model.Category;
 
-public class CategoryTest {
+public class CategoryTests {
 
 	Category category;
 	@Before
