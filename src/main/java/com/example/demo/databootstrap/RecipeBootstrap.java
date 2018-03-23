@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -180,6 +182,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 	}
 
 	@Override
+	@Transactional //now every ops happens in the same txn session
 	public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 		recipeRepository.saveAll(getRecipes());
 	}
