@@ -142,7 +142,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 		bundtCakeRecipe.getIngredient().add(new Ingredient("lemon", new BigDecimal(2), dashUOM,bundtCakeRecipe));
 		bundtCakeRecipe.getIngredient().add(new Ingredient("cocoa", new BigDecimal(2), ounceUOM,bundtCakeRecipe));
 		bundtCakeRecipe.setServings(2);
-		bundtCakeRecipe.setUrl("https://wwwdemocom");
+		bundtCakeRecipe.setUrl("https://www.facebook.com");
 
 		recipes.add(bundtCakeRecipe);
 
@@ -175,7 +175,8 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 		butterMasala.getIngredient().add(new Ingredient("paneer", new BigDecimal(2), dashUOM,butterMasala));
 		butterMasala.getIngredient().add(new Ingredient("jeera", new BigDecimal(2), ounceUOM,butterMasala));
 		butterMasala.setServings(4);
-		butterMasala.setUrl("https://wwwdemocom");
+		butterMasala.setUrl("https://www.google.com");
+		
 
 		recipes.add(butterMasala);
 		return recipes;

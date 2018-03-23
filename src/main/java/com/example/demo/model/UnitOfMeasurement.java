@@ -20,6 +20,11 @@ public class UnitOfMeasurement {
 		return uomID;
 	}
 
+	public UnitOfMeasurement() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public void setUomID(Long uomID) {
 		this.uomID = uomID;
 	}

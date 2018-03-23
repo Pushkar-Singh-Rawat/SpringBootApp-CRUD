@@ -11,6 +11,10 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Category {
 
+	public Category() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long catgID;

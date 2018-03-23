@@ -3,24 +3,21 @@
 <!-- xmlns:xml namespace -->
 <head>
 <meta charset="UTF-8" />
-<title>ATS Web Portal FullStack</title>
+<title>Recipe Web App</title>
 <!-- Latest compiled and minified CSS -->
+<script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-2/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
-
+	crossorigin="anonymous"
+	th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
 <!-- Latest compiled and minified JavaScript -->
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-2/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous"
+	th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+
 </head>
 <body>
 	<div class="container-fluid" style="margin-top: 20px">
@@ -32,25 +29,31 @@
 					</div>
 					<div class="panel-body">
 						<div class="table-responsive"
-							th:if="${not #lists.isEmpty(recipes)}"> <!-- if recipes returns null nothing would populate -->
+							th:if="${not #lists.isEmpty(recipes)}">
+							<!-- if recipes returns null nothing would populate -->
 							<table class="table table-hover">
 								<thead class="thead-inverse">
 									<tr>
 										<th>ID</th>
 										<th>Descrition</th>
+										<th>View</th>
 									</tr>
 								</thead>
-								<tr th:remove="all"> <!-- 'all' rows would be removed while running via sts -->
+								<!-- <tr th:remove="all">
+									'all' rows would be removed while running via sts
 									<td th:text="${recipe.recipeID}">ID</td>
 									<td th:text="${recipe.description}">Description</td>
 								</tr>
-								<tr th:remove="all"> <!-- just to view how the template looks -->
+								<tr th:remove="all">
+									just to view how the template looks
 									<td th:text="${recipe.recipeID}">ID</td>
 									<td th:text="${recipe.description}">Description</td>
-								</tr>
-								<tr th:each="recipe:${recipes}"> <!-- looping would happen for every recipe row being populated -->
+								</tr> -->
+								<tr th:each="recipe:${recipes}">
+									<!-- looping would happen for every recipe row being populated -->
 									<td th:text="${recipe.recipeID}">ID</td>
 									<td th:text="${recipe.description}">Description</td>
+									<td ><a th:href="@{'/recipe/show/'+${recipe.recipeID}}">View</a></td>
 								</tr>
 
 							</table>
@@ -61,5 +64,6 @@
 		</div>
 	</div>
 </body>
+
 
 </html>

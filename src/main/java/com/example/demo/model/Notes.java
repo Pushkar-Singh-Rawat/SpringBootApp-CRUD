@@ -7,7 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
+import lombok.Data;
+
+
 @Entity
+@Data
 public class Notes {
 
 	@Id
@@ -25,6 +29,11 @@ public class Notes {
 
 	public void setRecipeNotes(String recipeNotes) {
 		this.recipeNotes = recipeNotes;
+	}
+
+	public Notes() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public Long getNotesID() {

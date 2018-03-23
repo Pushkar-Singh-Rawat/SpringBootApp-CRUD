@@ -46,10 +46,15 @@ public class Recipe {
 	@JoinTable(name="recipe_category",joinColumns= @JoinColumn(name="recipe_recipeID"),inverseJoinColumns=
 	@JoinColumn(name="category_catgID")) //join colm naming convention: tablename_idname
 	//inverseJoinColumns and joincolumns to implement bidirectional join.
-	private Set<Category> categories=new HashSet<>() ;
+	public Set<Category> categories=new HashSet<>() ;
 
 	public Set<Ingredient> getIngredient() {
 		return ingredient;
+	}
+
+	public Recipe() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public void setIngredient(Set<Ingredient> ingredient) {
