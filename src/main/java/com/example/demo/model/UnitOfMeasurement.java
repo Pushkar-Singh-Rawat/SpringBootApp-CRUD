@@ -17,9 +17,9 @@ public class UnitOfMeasurement {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long uomID;
 	private String description;
-	public Long getUomID() {
+	/*public Long getUomID() {
 		return uomID;
-	}
+	}*/
 
 	public UnitOfMeasurement() {
 		super();
