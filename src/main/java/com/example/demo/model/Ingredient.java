@@ -12,7 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Setter
+@Getter
 public class Ingredient {
 
 	public Ingredient() {
@@ -44,7 +49,7 @@ public class Ingredient {
 		this.unitOfMeasurement = unitOfMeasurement;
 	}
 
-	public Long getIngredientID() {
+/*	public Long getIngredientID() {
 		return ingredientID;
 	}
 
@@ -83,5 +88,5 @@ public class Ingredient {
 	public void setRecipe(Recipe recipe) {
 		this.recipe = recipe;
 	}
-
+*/
 }

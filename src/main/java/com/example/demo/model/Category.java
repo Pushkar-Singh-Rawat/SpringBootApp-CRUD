@@ -8,7 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class Category {
 
 	public Category() {
@@ -21,7 +24,7 @@ public class Category {
 	private String description;
 	@ManyToMany(mappedBy="categories") //catagories is the property in table recipe that maps to the recipes prop below.
 	private Set<Recipe> recipes;
-	public Long getCatgID() {
+	/*public Long getCatgID() {
 		return catgID;
 	}
 	public void setCatgID(Long catgID) {
@@ -38,7 +41,7 @@ public class Category {
 	}
 	public void setRecipe(Set<Recipe> recipes) {
 		this.recipes = recipes;
-	}
+	}*/
 	
 	
 }

@@ -8,10 +8,13 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
-
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Data
+@Getter
+@Setter
 public class Notes {
 
 	@Id
@@ -23,7 +26,11 @@ public class Notes {
 				// decide to delete notes then that would not impact Recipe object.
 	private Recipe recipe;
 
-	public String getRecipeNotes() {
+	public Notes() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+/*	public String getRecipeNotes() {
 		return recipeNotes;
 	}
 
@@ -31,10 +38,6 @@ public class Notes {
 		this.recipeNotes = recipeNotes;
 	}
 
-	public Notes() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	public Long getNotesID() {
 		return notesID;
@@ -50,5 +53,5 @@ public class Notes {
 
 	public void setRecipe(Recipe recipe) {
 		this.recipe = recipe;
-	}
+	}*/
 }
