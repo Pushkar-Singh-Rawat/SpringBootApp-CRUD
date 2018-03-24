@@ -16,11 +16,11 @@ public class UnitOfMeasurementToUnitOfMeasurementCommand
 	@Synchronized
 	@Nullable
 	@Override
-	public UnitOfMeasurementCommand convert(UnitOfMeasurement uom) {
-		if(uom!=null){
+	public UnitOfMeasurementCommand convert(UnitOfMeasurement source) {
+		if(source!=null){
 		final UnitOfMeasurementCommand command=new UnitOfMeasurementCommand();
-		command.setUomID(uom.getUomID());
-		command.setDescription(uom.getDescription());
+		command.setUomID(source.getUomID());
+		command.setDescription(source.getDescription());
 		return command;
 		}
 		return null;
