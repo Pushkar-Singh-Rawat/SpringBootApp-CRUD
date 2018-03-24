@@ -33,7 +33,7 @@ public class Ingredient {
 	@ManyToOne // no cascading is needed. As per data model design.
 	private Recipe recipe; // to which ingredient belongs
 
-	@OneToOne(fetch = FetchType.EAGER) // fetched everytime from db
+	@OneToOne(fetch = FetchType.EAGER) // fetched everytime from db (by default OneToOne is eager)
 	private UnitOfMeasurement unitOfMeasurement;
 
 	public Ingredient(String description, BigDecimal amount, UnitOfMeasurement unitOfMeasurement,Recipe recipe) {
