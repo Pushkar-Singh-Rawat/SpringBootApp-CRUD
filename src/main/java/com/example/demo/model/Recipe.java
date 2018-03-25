@@ -22,7 +22,9 @@ import javax.persistence.OneToOne;
 public class Recipe {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // underlying pa would generate the unique id sequence
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // underlying pa would
+														// generate the unique
+														// id sequence
 	// accordingly
 	private Long recipeID;
 
@@ -35,18 +37,28 @@ public class Recipe {
 	private String description;
 	@Lob
 	private Byte[] image; // will be stored as a BLOB in db
-	@OneToOne(cascade = CascadeType.ALL) // owner entity for Notes. If any state change happens for Recipe then Notes
+	@OneToOne(cascade = CascadeType.ALL) // owner entity for Notes. If any state
+											// change happens for Recipe then
+											// Notes
 	// would get that.
 	private Notes notes;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe") // as recipe owns Ingredient.
-	private Set<Ingredient> ingredient=new HashSet<>(); // this will be mapped by the recipe property of ingredient
-	@Enumerated(value = EnumType.STRING) // db will have string values saved into it.
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe") // as recipe owns
+																// Ingredient.
+	private Set<Ingredient> ingredient = new HashSet<>(); // this will be mapped
+															// by the recipe
+															// property of
+															// ingredient
+	@Enumerated(value = EnumType.STRING) // db will have string values saved
+											// into it.
 	private Difficulty difficulty;
 	@ManyToMany
-	@JoinTable(name="recipe_category",joinColumns= @JoinColumn(name="recipe_recipeID"),inverseJoinColumns=
-	@JoinColumn(name="category_catgID")) //join colm naming convention: tablename_idname
-	//inverseJoinColumns and joincolumns to implement bidirectional join.
-	public Set<Category> categories=new HashSet<>() ;
+	@JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_recipeID"), inverseJoinColumns = @JoinColumn(name = "category_catgID")) // join
+																																							// colm
+																																							// naming
+																																							// convention:
+																																							// tablename_idname
+	// inverseJoinColumns and joincolumns to implement bidirectional join.
+	public Set<Category> categories = new HashSet<>();
 
 	public Set<Ingredient> getIngredient() {
 		return ingredient;
@@ -63,8 +75,8 @@ public class Recipe {
 
 	public Recipe addIngredient(Ingredient ingredient) {
 		ingredient.setRecipe(this);
-	    this.ingredient.add(ingredient);
-	    return this;
+		this.ingredient.add(ingredient);
+		return this;
 	}
 
 	public Long getRecipeID() {
@@ -136,8 +148,11 @@ public class Recipe {
 	}
 
 	public void setNotes(Notes notes) {
-		this.notes = notes;
-		notes.setRecipe(this);
+		if (notes != null) {
+			this.notes = notes;
+			notes.setRecipe(this);
+		}
+
 	}
 
 	public Difficulty getDifficulty() {
