@@ -5,17 +5,28 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.commands.RecipeCommand;
+import com.example.demo.converters.RecipeCommandToRecipe;
+import com.example.demo.converters.RecipeToRecipeCommand;
 import com.example.demo.model.Recipe;
 import com.example.demo.respositories.RecipeRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
 	private final RecipeRepository recipeRepository;
+	private final RecipeCommandToRecipe recipeCommandToRecipe;
+	private final RecipeToRecipeCommand recipeToRecipeCommand;
 
-	public RecipeServiceImpl(RecipeRepository recipeRepository) {
-		
+	public RecipeServiceImpl(RecipeRepository recipeRepository, RecipeCommandToRecipe recipeCommandToRecipe,
+			RecipeToRecipeCommand recipeToRecipeCommand) {
+		this.recipeCommandToRecipe = recipeCommandToRecipe;
+		this.recipeToRecipeCommand = recipeToRecipeCommand;
 		this.recipeRepository = recipeRepository;
 	}
 
@@ -30,11 +41,21 @@ public class RecipeServiceImpl implements RecipeService {
 	@Override
 	public Recipe findById(long l) {
 		Optional<Recipe> recipeOptional = recipeRepository.findById(l);
-		if(!recipeOptional.isPresent()) {
+		if (!recipeOptional.isPresent()) {
 			throw new RuntimeException();
 		}
 		return recipeOptional.get();
 	}
 
+	@Transactional
+	@Override
+	public RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand) {
+		// TODO Auto-generated method stub
+		Recipe pojoRecipe = recipeCommandToRecipe.convert(recipeCommand);//detached from hibernate context. Just a pojo.
+		Recipe savedRecipe = recipeRepository.save(pojoRecipe); //new entry if not already else merge with exisiting.
+		log.debug("saved recipeID::" + savedRecipe.getRecipeID());
+
+		return recipeToRecipeCommand.convert(savedRecipe);
+	}
 
 }
