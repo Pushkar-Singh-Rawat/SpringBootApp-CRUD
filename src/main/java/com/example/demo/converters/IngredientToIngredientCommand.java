@@ -2,12 +2,14 @@ package com.example.demo.converters;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 
 import com.example.demo.commands.IngredientCommand;
 import com.example.demo.model.Ingredient;
 
 import lombok.Synchronized;
 
+@Component
 public class IngredientToIngredientCommand implements Converter<Ingredient, IngredientCommand> {
 
 	private final UnitOfMeasurementToUnitOfMeasurementCommand uom;
