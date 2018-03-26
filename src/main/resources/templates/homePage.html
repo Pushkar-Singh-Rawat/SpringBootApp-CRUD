@@ -53,7 +53,7 @@
 									<!-- looping would happen for every recipe row being populated -->
 									<td th:text="${recipe.recipeID}">ID</td>
 									<td th:text="${recipe.description}">Description</td>
-									<td ><a th:href="@{'/recipe/show/'+${recipe.recipeID}}">View</a></td>
+									<td ><a th:href="@{'/recipe/'+${recipe.recipeID}+'/show/'}">View</a></td>
 								</tr>
 
 							</table>
