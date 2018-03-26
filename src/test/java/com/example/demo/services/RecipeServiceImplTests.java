@@ -60,4 +60,5 @@ public class RecipeServiceImplTests {
 		assertEquals(recipes.size(), 1);
 		verify(recipeRepository, times(1)).findAll(); // findAll should be called only once as expected
 	}
+	
 }
