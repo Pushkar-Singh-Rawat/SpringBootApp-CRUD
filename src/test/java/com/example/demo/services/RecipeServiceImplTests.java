@@ -60,5 +60,15 @@ public class RecipeServiceImplTests {
 		assertEquals(recipes.size(), 1);
 		verify(recipeRepository, times(1)).findAll(); // findAll should be called only once as expected
 	}
-	
+	@Test
+	public void testDeleteRecipe() throws Exception{
+		//given
+		Long id=Long.valueOf(2L);
+		//when
+		recipeService.deleteById(id);
+
+		//then
+		//below step verifies recipeRepository is called single time and DeleteByID() is invoked with any long val
+		verify(recipeRepository,times(1)).deleteById(Mockito.anyLong());
+	}
 }
