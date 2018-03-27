@@ -21,6 +21,8 @@ import org.springframework.ui.Model;
 import com.example.demo.commands.RecipeCommand;
 import com.example.demo.model.Recipe;
 import com.example.demo.services.RecipeService;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 public class RecipeControllerTests {
 
@@ -29,12 +31,12 @@ public class RecipeControllerTests {
 	RecipeController recipeController;
 	@Mock
 	Model model; // mocked Model interface
-
+	MockMvc mockMVC;
 	@Before
 	public void setup() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		recipeController = new RecipeController(recipeService);
-
+		mockMVC = MockMvcBuilders.standaloneSetup(recipeController).build();
 	}
 
 	@Test
@@ -43,7 +45,6 @@ public class RecipeControllerTests {
 		recipe.setRecipeID(1L);
 		when(recipeService.findById(Mockito.anyLong())).thenReturn(recipe);
 
-		MockMvc mockMVC = MockMvcBuilders.standaloneSetup(recipeController).build();
 		mockMVC.perform(get("/recipe/1/show")).andExpect(status().isOk()).andExpect(view().name("recipe/show"))
 		.andExpect(MockMvcResultMatchers.model().attributeExists("recipe"));
 	}
@@ -54,13 +55,21 @@ public class RecipeControllerTests {
 		command.setRecipeID(2L);
 		when(recipeService.saveRecipeCommand(Mockito.any())).thenReturn(command);
 
-		MockMvc mockMVC = MockMvcBuilders.standaloneSetup(recipeController).build();
 		mockMVC.perform(post("/recipe")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
 				.param("recipeID","")
 				.param("description", "anydesc")
 				).andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/recipe/2/show"));
+
+	}
+
+	@Test
+	public void testDeleteRecipe() throws Exception{
+		mockMVC.perform(get("/recipe/1/delete"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/"));
+		verify(recipeService,times(1)).deleteById(Mockito.anyLong());
 		
 	}
 
