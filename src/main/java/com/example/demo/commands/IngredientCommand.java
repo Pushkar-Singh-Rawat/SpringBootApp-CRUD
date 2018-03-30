@@ -20,7 +20,7 @@ public class IngredientCommand {
 	private Long ingredientID;
 	private String description;
 	private BigDecimal amount;
-
+	private Long recipeID;
 	private Recipe recipe;
 
 	private UnitOfMeasurementCommand unitOfMeasurement;
