@@ -54,9 +54,9 @@
 									<!-- looping would happen for every recipe row being populated -->
 									<td th:text="${ingredient.ingredientID}">ID</td>
 									<td th:text="${ingredient.amount}+' '+${ingredient.description}+' '+${ingredient.unitOfMeasurement.getDescription()}">Description</td>
-									<td ><a th:href="@{'/recipe/'+${recipe.recipeID}+'/ingredient/'+${ingredient.ingredientID}+'/show/'}">View</a></td>
-									<td ><a th:href="@{'/recipe/'+${recipe.recipeID}+'/ingredient/'+${ingredient.ingredientID}+'/update/'}">Update</a></td>
-									<td ><a th:href="@{'/recipe/'+${recipe.recipeID}+'/ingredient/'+${ingredient.ingredientID}+'/delete/'}">Delete</a></td>
+									<td ><a th:href="@{'/recipe/'+${recipe.recipeID}+'/ingredients/'+${ingredient.ingredientID}+'/show/'}">View</a></td>
+									<td ><a th:href="@{'/recipe/'+${recipe.recipeID}+'/ingredients/'+${ingredient.ingredientID}+'/update/'}">Update</a></td>
+									<td ><a th:href="@{'/recipe/'+${recipe.recipeID}+'/ingredients/'+${ingredient.ingredientID}+'/delete/'}">Delete</a></td>
 								</tr>
 
 							</table>
