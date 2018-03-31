@@ -71,6 +71,7 @@ public class RecipeServiceImpl implements RecipeService {
 		// TODO Auto-generated method stub
 		/*RecipeCommand recipeCommand=findCommandById(recipeCommandID);
 		Recipe recipe=recipeCommandToRecipe.convert(recipeCommand);*/
+		log.debug("id being deleted "+ id);
 		recipeRepository.deleteById(id);
 	}
 

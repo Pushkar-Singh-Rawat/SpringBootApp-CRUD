@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -16,6 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.result.ModelResultMatchers;
 
+import com.example.demo.commands.IngredientCommand;
 import com.example.demo.services.IngredientService;
 import com.example.demo.services.RecipeService;
 
@@ -38,9 +40,15 @@ public class IngredientControllerTests {
 	@Test
 	public void testShowIngredient() throws Exception {
 
+		//given
+		IngredientCommand ingredientCommand=new IngredientCommand();
+		
+		//when
+		Mockito.when(ingredientService.findByRecipeIdAndIngredientID(Mockito.anyLong(), Mockito.anyLong())).thenReturn(ingredientCommand);
+		//then
 		mockMVC.perform(get("/recipe/1/ingredients/2/show/")).andExpect(status().isOk())
 				.andExpect(view().name("recipe/ingredient/show"))
-				/*.andExpect(MockMvcResultMatchers.model().attributeExists("ingredient"))*/;
+				.andExpect(MockMvcResultMatchers.model().attributeExists("ingredient"));
 
 	}
 }
