@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.model.Recipe;
 import com.example.demo.respositories.RecipeRepository;
 
@@ -47,6 +48,14 @@ public class RecipeServiceImplTests {
 		verify(recipeRepository,times(1)).findById(Mockito.anyLong());
 		verify(recipeRepository,never()).findAll();
 	}
+	
+	@Test(expected=NotFoundException.class)
+	public void getRecipeByIdTestNotFound() throws Exception{
+		Optional<Recipe> recipeOptional=Optional.empty();
+		when(recipeRepository.findById(1L)).thenReturn(recipeOptional);
+		Recipe returnedRecipe=recipeService.findById(1L);
+	}
+	
 
 	@Test
 	public void getRecipe() throws Exception {
@@ -60,6 +69,11 @@ public class RecipeServiceImplTests {
 		assertEquals(recipes.size(), 1);
 		verify(recipeRepository, times(1)).findAll(); // findAll should be called only once as expected
 	}
+	
+	
+	
+	
+	
 	@Test
 	public void testDeleteRecipe() throws Exception{
 		//given
