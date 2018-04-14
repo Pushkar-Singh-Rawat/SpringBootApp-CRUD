@@ -1,1 +1,0 @@
-[![codecov](https://codecov.io/gh/desiCoda/RecipesSimplified/branch/master/graph/badge.svg)](https://codecov.io/gh/desiCoda/RecipesSimplified)
