@@ -69,11 +69,12 @@ public class RecipeControllerTests {
 		command.setRecipeID(2L);
 		when(recipeService.saveRecipeCommand(Mockito.any())).thenReturn(command);
 
-		mockMVC.perform(post("/recipe/")
+		mockMVC.perform(post("/recipe")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
 				.param("recipeID","")
-				.param("description", "anydesc")
-				)/*.andExpect(status().is3xxRedirection())*/
+				.param("directions", "some string")
+				.param("description", "some string")
+				).andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/recipe/2/show"));
 
 	}
