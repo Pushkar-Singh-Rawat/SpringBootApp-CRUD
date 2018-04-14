@@ -13,29 +13,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.commands.IngredientCommand;
 import com.example.demo.commands.UnitOfMeasurementCommand;
+import com.example.demo.converters.IngredientCommandToIngredient;
 import com.example.demo.converters.IngredientToIngredientCommand;
 import com.example.demo.converters.UnitOfMeasurementToUnitOfMeasurementCommand;
+import com.example.demo.converters.UnitOfMeaurementCommandToUnitOfMesurement;
 import com.example.demo.model.Ingredient;
 import com.example.demo.model.Recipe;
 import com.example.demo.respositories.RecipeRepository;
+import com.example.demo.respositories.UnitOfMeasurementRepository;
 import com.fasterxml.jackson.annotation.JacksonInject.Value;
 
 public class IngredientServiceImplTests {
-	
+
 	private final IngredientToIngredientCommand ingredientToIngredientCommand;
+	private final IngredientCommandToIngredient ingredientCommandToIngredient;
 	@Mock
 	RecipeRepository recipeRepository;
 	IngredientService ingredientService;
-
+	UnitOfMeasurementRepository unitOfMeasurementRepository;
 	public IngredientServiceImplTests() {
 		this.ingredientToIngredientCommand = new IngredientToIngredientCommand(
 				new UnitOfMeasurementToUnitOfMeasurementCommand());
+		this.ingredientCommandToIngredient=new IngredientCommandToIngredient(
+				new UnitOfMeaurementCommandToUnitOfMesurement());
 	}
 
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-		ingredientService = new IngredientServiceImpl(recipeRepository, ingredientToIngredientCommand);
+		ingredientService = new IngredientServiceImpl(recipeRepository, ingredientToIngredientCommand,unitOfMeasurementRepository,ingredientCommandToIngredient);
 	}
 
 	@Test
