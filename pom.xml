@@ -94,7 +94,6 @@
 					</formats>
 					<check />
 				</configuration>
-
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
