@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
 import com.example.demo.commands.RecipeCommand;
+import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.model.Recipe;
 import com.example.demo.services.RecipeService;
 import static org.mockito.Mockito.verify;
@@ -36,7 +37,8 @@ public class RecipeControllerTests {
 	public void setup() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		recipeController = new RecipeController(recipeService);
-		mockMVC = MockMvcBuilders.standaloneSetup(recipeController).build();
+		mockMVC = MockMvcBuilders.standaloneSetup(recipeController)
+				.setControllerAdvice(new ControllerExceptionHandler()).build();
 	}
 
 	@Test
@@ -47,6 +49,18 @@ public class RecipeControllerTests {
 
 		mockMVC.perform(get("/recipe/1/show")).andExpect(status().isOk()).andExpect(view().name("recipe/show"))
 		.andExpect(MockMvcResultMatchers.model().attributeExists("recipe"));
+	}
+	@Test
+	public void getRecipeNotFound() throws Exception {
+
+		Recipe recipe = new Recipe();
+		recipe.setRecipeID(1L);
+		
+		when(recipeService.findById(Mockito.anyLong())).thenThrow(NotFoundException.class);
+		
+		mockMVC.perform(get("/recipe/1/show"))
+		.andExpect(status().isNotFound());
+		
 	}
 
 	@Test

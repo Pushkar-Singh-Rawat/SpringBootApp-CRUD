@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.result.ModelResultMatchers;
 import com.example.demo.commands.IngredientCommand;
 import com.example.demo.services.IngredientService;
 import com.example.demo.services.RecipeService;
+import com.example.demo.services.UnitOfMeasurementService;
 
 public class IngredientControllerTests {
 	MockMvc mockMVC;
@@ -28,12 +29,14 @@ public class IngredientControllerTests {
 	RecipeService recipeService;
 	@Mock
 	IngredientService ingredientService;
+	@Mock
+	UnitOfMeasurementService unitOfMeasurementService;
 
 
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-		ingredientController = new IngredientController(recipeService,ingredientService);
+		ingredientController = new IngredientController(recipeService,ingredientService,unitOfMeasurementService);
 		mockMVC = MockMvcBuilders.standaloneSetup(ingredientController).build();
 	}
 
@@ -46,7 +49,7 @@ public class IngredientControllerTests {
 		//when
 		Mockito.when(ingredientService.findByRecipeIdAndIngredientID(Mockito.anyLong(), Mockito.anyLong())).thenReturn(ingredientCommand);
 		//then
-		mockMVC.perform(get("/recipe/1/ingredients/2/show/")).andExpect(status().isOk())
+		mockMVC.perform(get("/recipe/1/ingredient/2/show/")).andExpect(status().isOk())
 				.andExpect(view().name("recipe/ingredient/show"))
 				.andExpect(MockMvcResultMatchers.model().attributeExists("ingredient"));
 
