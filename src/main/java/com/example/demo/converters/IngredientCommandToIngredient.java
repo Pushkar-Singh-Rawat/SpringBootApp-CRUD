@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.commands.IngredientCommand;
 import com.example.demo.model.Ingredient;
+import com.example.demo.model.Recipe;
 
 @Component
 public class IngredientCommandToIngredient implements Converter<IngredientCommand, Ingredient> {
@@ -20,7 +21,14 @@ public class IngredientCommandToIngredient implements Converter<IngredientComman
 		if (source == null) {
 			return null;
 		}
+
 		Ingredient ingredient = new Ingredient();
+		if (source.getRecipeID() != null) {
+			Recipe recipe = new Recipe();
+			recipe.setRecipeID(source.getRecipeID());
+			ingredient.setRecipe(recipe);
+			recipe.addIngredient(ingredient);
+		}
 		ingredient.setAmount(source.getAmount());
 		ingredient.setDescription(source.getDescription());
 		ingredient.setIngredientID(source.getIngredientID());

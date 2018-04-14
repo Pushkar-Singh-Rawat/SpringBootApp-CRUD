@@ -27,13 +27,18 @@ public class IngredientToIngredientCommand implements Converter<Ingredient, Ingr
 			return null;
 		}
 		final IngredientCommand command = new IngredientCommand();
+		command.setIngredientID(source.getIngredientID());
 		command.setAmount(source.getAmount());
-		if(source.getRecipe()!=null){
+		if(source.getRecipe().getRecipeID()!=null){
 		command.setRecipeID(source.getRecipe().getRecipeID());
+		System.out.println("inside converter---------->"+command.getRecipeID());
+		}
+		else{
+			System.out.println("inside converter recipe not present---------->"+command.getRecipeID());
 		}
 		command.setUnitOfMeasurement(uom.convert(source.getUnitOfMeasurement()));
 		command.setDescription(source.getDescription());
-		command.setIngredientID(source.getIngredientID());
+	
 		return command;
 	}
 
